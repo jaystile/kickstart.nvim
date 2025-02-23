@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mfussenegger/nvim-dap-python',
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
@@ -95,6 +96,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'python',
       },
     }
 
@@ -144,5 +146,38 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    -- Installs an isolated version of debugpy to launch which is separate from the project's env
+    require('dap-python').setup '/home/jason/.pyenv/versions/debugpy/bin/python'
+
+    -- Set the default test runner to pytest. Most of the projects encountered are using it.
+    -- This may not be needed. Try removing it.
+    require('dap-python').test_runner = 'pytest'
+
+    -- Add confguration to launch the current file.
+    table.insert(dap.configurations.python, 1, {
+      name = 'debugpy:pytest: Current File',
+      type = 'python',
+      request = 'launch',
+      module = 'debugpy',
+      args = {
+        '-m',
+        'pytest',
+        '-lvxs',
+        '--no-cov', -- disable coverage as coverage breaks debuggers. It breaks pycharm and dap.
+        '${file}',
+      },
+      console = 'integratedTerminal',
+    })
+    table.insert(dap.configurations.python, 1, {
+      name = 'debugpy: remote attach',
+      type = 'python',
+      request = 'attach',
+      justMyCode = false,
+      connect = {
+        host = '127.0.0.1',
+        port = 5678,
+      },
+    })
   end,
 }
