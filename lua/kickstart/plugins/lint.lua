@@ -6,7 +6,10 @@ return {
     config = function()
       local lint = require 'lint'
       lint.linters_by_ft = {
+        bash = { 'bash', 'ShellCheck' },
         markdown = { 'markdownlint' },
+        json = { 'jsonlint' },
+        sh = { 'ShellCheck' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
