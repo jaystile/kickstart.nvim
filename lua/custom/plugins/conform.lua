@@ -22,12 +22,14 @@ return {
   opts = {
     -- Define your formatters
     formatters_by_ft = {
-      -- bash = { 'shfmt' },
+      bash = { 'shfmt', 'shellcheck' },
       elixir = { 'mix' },
       json = { 'jq' },
       lua = { 'stylua' },
+      md = { 'prettier' },
+      markdown = { 'prettier' },
       python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
-      -- sh = { 'shfmt' },
+      sh = { 'shfmt', 'shellcheck' },
     },
     -- Set default options
     default_format_opts = {
