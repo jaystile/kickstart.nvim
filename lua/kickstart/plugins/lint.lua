@@ -7,7 +7,7 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         -- bash = { 'bash' },
-        markdown = { 'markdownlint' },
+        markdown = { 'markdownlint-cli2' },
         json = { 'jsonlint' },
         sh = { 'shellcheck' },
       }
