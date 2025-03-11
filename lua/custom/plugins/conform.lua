@@ -24,6 +24,7 @@ return {
     formatters_by_ft = {
       bash = { 'shfmt', 'shellcheck' },
       elixir = { 'mix' },
+      html = { 'prettier' },
       json = { 'jq' },
       lua = { 'stylua' },
       ['markdown'] = { 'prettier', 'markdownlint-cli2', 'markdown-toc' },
