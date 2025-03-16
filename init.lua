@@ -669,8 +669,6 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- deno is used by peek for markdown viewing
-        deno = {},
         ['markdownlint-cli2'] = {},
         ['markdown-toc'] = {},
         marksman = {},
