@@ -27,7 +27,7 @@ return {
       html = { 'prettier' },
       json = { 'jq' },
       lua = { 'stylua' },
-      ['markdown'] = { 'prettier', 'markdownlint-cli2', 'markdown-toc' },
+      ['markdown'] = { 'mdslw', 'prettier', 'markdownlint-cli2', 'markdown-toc' },
       ['markdown.mdx'] = { 'prettier', 'markdownlint-cli2', 'markdown-toc' },
       python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
       sh = { 'shfmt', 'shellcheck' },
@@ -60,6 +60,7 @@ return {
           return #diag > 0
         end,
       },
+      mdslw = { prepend_args = { '--stdin-filepath', '$FILENAME' } },
       shfmt = {
         prepend_args = { '-i', '2' },
       },
