@@ -672,7 +672,6 @@ require('lazy').setup({
         ['markdownlint-cli2'] = {},
         ['markdown-toc'] = {},
         marksman = {},
-        mdslw = {},
         rust_analyzer = {
           -- Other Settings ...
           procMacro = {
