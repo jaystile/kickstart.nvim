@@ -475,7 +475,7 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', opts = { ensure_installed = { 'markdownlint-cli2', 'markdown-toc' } } },
+      { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -661,11 +661,16 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      --
+      -- Execute :Mason to see the list of everything Mason can install
+      -- `servers` is passed down to `ensure_installed` which get passed down to mason-lspconfig (eventually)
       local servers = {
         bashls = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
+        ['markdownlint-cli2'] = {},
+        ['markdown-toc'] = {},
         marksman = {},
         rust_analyzer = {
           -- Other Settings ...
@@ -692,14 +697,14 @@ require('lazy').setup({
           settings = {
             pylsp = {
               plugins = {
-                pyflakes = { enabled = false },
-                pycodestyle = { enabled = false },
-                autopep8 = { enabled = false },
+                pyflakes = { enabled = true },
+                pycodestyle = { enabled = true },
+                autopep8 = { enabled = true },
                 yapf = { enabled = false },
                 mccabe = { enabled = false },
-                pylsp_mypy = { enabled = false },
-                pylsp_black = { enabled = false },
-                pylsp_isort = { enabled = false },
+                pylsp_mypy = { enabled = true },
+                pylsp_black = { enabled = true },
+                pylsp_isort = { enabled = true },
               },
             },
           },
@@ -745,7 +750,7 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
