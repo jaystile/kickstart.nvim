@@ -77,8 +77,8 @@ return {
     })
     vim.api.nvim_create_autocmd('BufWritePost', {
       pattern = { '*.md', '*.puml' },
+      once = true,
       callback = function(args)
-        print 'Writing PlantUML diagrams'
         vim.cmd { cmd = 'terminal', args = { 'java', '-jar', '/opt/plantuml/plantuml.jar', '-tsvg', args.file } }
       end,
     })
