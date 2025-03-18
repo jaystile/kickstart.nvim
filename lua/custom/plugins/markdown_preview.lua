@@ -22,5 +22,7 @@ return {
     vim.g.mkdp_browser = 'firefox'
     vim.g.mkdp_echo_preview_url = true
     vim.g.mkdp_page_title = '${name}'
+
+    vim.keymap.set('n', '<leader>tp', '<cmd>MarkdownPreviewToggle<CR>', { desc = '[T]oggle [P]review' })
   end,
 }
