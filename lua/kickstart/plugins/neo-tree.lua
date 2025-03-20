@@ -17,6 +17,7 @@ return {
     filesystem = {
       use_libuv_file_watcher = true,
       window = {
+        position = 'float',
         mappings = {
           ['\\'] = 'close_window',
         },
