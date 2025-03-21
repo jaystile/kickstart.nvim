@@ -11,16 +11,16 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>vg', ':Neotree reveal float git_status<CR>', desc = '[V]iew [G]it modified', silent = true },
+    { '<leader>vb', ':Neotree reveal float buffers<CR>', desc = '[V]iew [B]uffers', silent = true },
+    { '<leader>vd', ':Neotree float document_symbols<CR>', desc = '[V]iew [D]ocument Symbols', silent = true },
+    { '<leader>vt', ':Neotree reveal float<CR>', desc = '[V]iew [T]ree', silent = true },
   },
   opts = {
     filesystem = {
       use_libuv_file_watcher = true,
       window = {
         position = 'float',
-        mappings = {
-          ['\\'] = 'close_window',
-        },
       },
     },
   },
