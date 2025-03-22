@@ -77,7 +77,7 @@ return {
     })
     vim.api.nvim_create_autocmd('BufWritePost', {
       pattern = { '*.md', '*.puml' },
-      command = ':!java -jar /opt/plantuml/plantuml.jar -tsvg %',
+      command = ':!if grep -q startuml % ; then java -jar /opt/plantuml/plantuml.jar -tsvg % ; fi',
     })
   end,
 }
