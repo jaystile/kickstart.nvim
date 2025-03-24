@@ -272,6 +272,17 @@ require('lazy').setup({
     },
   },
 
+  --
+  -- Project specific neovim configuration. Must be installed before LSPs
+  -- I installed to all for leptosfmt instead of rustfmt for my leptos projects.
+  {
+    'folke/neoconf.nvim',
+    opts = {},
+    config = function()
+      require('neoconf').setup {}
+    end,
+  },
+
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -479,6 +490,7 @@ require('lazy').setup({
       { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'folke/neoconf.nvim',
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
@@ -673,18 +685,17 @@ require('lazy').setup({
         ['markdownlint-cli2'] = {},
         ['markdown-toc'] = {},
         marksman = {},
-        rust_analyzer = {
-          -- Other Settings ...
-          procMacro = {
-            ignored = {
-              leptos_macro = {
-                -- optional: --
-                -- "component",
-                'server',
+        jsonls = {
+          settings = {
+            json = {
+              format = {
+                enable = true,
               },
             },
+            validate = { enable = true },
           },
         },
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
