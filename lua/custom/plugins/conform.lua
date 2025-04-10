@@ -62,7 +62,6 @@ return {
       shfmt = {
         prepend_args = { '-i', '2' },
       },
-      rust = { 'rustfmt', lsp_format = 'fallback', arg = '-rs' },
     },
   },
   init = function()

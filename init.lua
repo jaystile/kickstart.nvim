@@ -275,7 +275,8 @@ require('lazy').setup({
 
   --
   -- Project specific neovim configuration. Must be installed before LSPs
-  -- I installed to all for leptosfmt instead of rustfmt for my leptos projects.
+  -- I installed to allow for project specific leptosfmt instead of rustfmt for my leptos projects.
+  -- It will probably be useful for other use cases.
   {
     'folke/neoconf.nvim',
     opts = {},
@@ -696,7 +697,6 @@ require('lazy').setup({
             validate = { enable = true },
           },
         },
-        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
