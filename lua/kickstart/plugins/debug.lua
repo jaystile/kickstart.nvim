@@ -147,6 +147,7 @@ return {
     --  },
     --}
 
+    -- START python config
     -- Installs an isolated version of debugpy to launch which is separate from the project's env
     require('dap-python').setup '/home/jason/.pyenv/versions/debugpy/bin/python'
 
@@ -179,5 +180,98 @@ return {
         port = 5678,
       },
     })
+    -- END python config
+    -- START C++ & Rust config
+    dap.adapters.lldb = {
+      type = 'executable',
+      command = '/opt/llvm/bin/lldb-dap', -- adjust as needed, must be absolute path
+      name = 'lldb',
+    }
+    dap.configurations.cpp = {
+      {
+        name = 'Launch',
+        type = 'lldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+
+        -- 💀
+        -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
+        --
+        --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+        --
+        -- Otherwise you might get the following error:
+        --
+        --    Error on launch: Failed to attach to the target process
+        --
+        -- But you should be aware of the implications:
+        -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
+        -- runInTerminal = false,
+      },
+    }
+    dap.configurations.rust = {
+      {
+        -- Follow the guide: https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#ccrust-via-lldb-vscode
+        name = 'Launch',
+        type = 'lldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+
+        initCommands = function()
+          -- Find out where to look for the pretty printer Python module.
+          local rustc_sysroot = vim.fn.trim(vim.fn.system 'rustc --print sysroot')
+          assert(vim.v.shell_error == 0, 'failed to get rust sysroot using `rustc --print sysroot`: ' .. rustc_sysroot)
+          local script_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py'
+          local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
+
+          -- The following is a table/list of lldb commands, which have a syntax
+          -- similar to shell commands.
+          --
+          -- To see which command options are supported, you can run these commands
+          -- in a shell:
+          --
+          --   * lldb --batch -o 'help command script import'
+          --   * lldb --batch -o 'help command source'
+          --
+          -- Commands prefixed with `?` are quiet on success (nothing is written to
+          -- debugger console if the command succeeds).
+          --
+          -- Prefixing a command with `!` enables error checking (if a command
+          -- prefixed with `!` fails, subsequent commands will not be run).
+          --
+          -- NOTE: it is possible to put these commands inside the ~/.lldbinit
+          -- config file instead, which would enable rust types globally for ALL
+          -- lldb sessions (i.e. including those run outside of nvim). However,
+          -- that may lead to conflicts when debugging other languages, as the type
+          -- formatters are merely regex-matched against type names. Also note that
+          -- .lldbinit doesn't support the `!` and `?` prefix shorthands.
+          return {
+            ([[!command script import '%s']]):format(script_file),
+            ([[command source '%s']]):format(commands_file),
+          }
+        end,
+        -- ...,
+      },
+      {
+        name = 'Launch function under cursor',
+        type = 'lldb',
+        request = 'launch',
+        cargo = {
+          args = { 'test', '--no-run' },
+        },
+        args = { '${selectedText}' },
+        cwd = '${workspaceFolder}',
+      },
+    }
+    -- END C++ & Rust config
   end,
 }

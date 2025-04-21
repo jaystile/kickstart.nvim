@@ -14,6 +14,7 @@ return {
     { '<leader>vg', '<cmd>Neotree reveal float git_status<CR>', desc = '[V]iew [G]it modified', silent = true },
     { '<leader>vb', '<cmd>Neotree reveal float buffers<CR>', desc = '[V]iew [B]uffers', silent = true },
     { '<leader>vt', '<cmd>Neotree reveal float<CR>', desc = '[V]iew [T]ree', silent = true },
+    { '\\', '<cmd>Neotree reveal float<CR>', desc = 'View Tree, silent = true' },
   },
   opts = {
     filesystem = {
