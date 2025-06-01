@@ -747,7 +747,6 @@ else
               },
             },
           },
-          sqls = {},
         }
 
         -- Elixir Language Server cannot be installed automatically. It must be built with the version of Erlang and Elixir
