@@ -18,14 +18,6 @@ return {
             end,
             { silent = true, buffer = bufnr }
           )
-          vim.keymap.set(
-            'n',
-            'K', -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions. It is much prettier.
-            function()
-              vim.cmd.RustLsp { 'hover', 'actions' }
-            end,
-            { silent = true, buffer = bufnr }
-          )
 
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end,

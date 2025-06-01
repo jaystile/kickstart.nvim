@@ -109,15 +109,15 @@ return {
       icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
       controls = {
         icons = {
-          pause = '⏸',
-          play = '▶',
-          step_into = '⏎',
-          step_over = '⏭',
-          step_out = '⏮',
-          step_back = 'b',
-          run_last = '▶▶',
-          terminate = '⏹',
-          disconnect = '⏏',
+          pause = '󰏤',
+          play = '',
+          step_into = '',
+          step_over = '',
+          step_out = '',
+          step_back = '',
+          run_last = '',
+          terminate = '',
+          disconnect = '󰌙',
         },
       },
     }
@@ -213,6 +213,11 @@ return {
         -- runInTerminal = false,
       },
     }
+    -- IMPORTANT! You're probably looking for :RustLsp debuggables
+    -- IMPORTANT! You're probably looking for :RustLsp debuggables
+    -- IMPORTANT! You're probably looking for :RustLsp debuggables
+    -- IMPORTANT! You're probably looking for :RustLsp debuggables
+    -- IMPORTANT! You're probably looking for :RustLsp debuggables
     dap.configurations.rust = {
       {
         -- Follow the guide: https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#ccrust-via-lldb-vscode
