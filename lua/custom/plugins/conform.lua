@@ -30,6 +30,7 @@ return {
       markdown = { 'prettier', 'markdownlint-cli2', 'markdown-toc' },
       python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
       sh = { 'shfmt', 'shellcheck' },
+      sql = { 'pg_format' },
     },
     -- Set default options
     default_format_opts = {
@@ -61,6 +62,9 @@ return {
       },
       shfmt = {
         prepend_args = { '-i', '2' },
+      },
+      pg_format = {
+        prepend_args = { '--keyword-case', '2', '--spaces', '3' },
       },
     },
   },
