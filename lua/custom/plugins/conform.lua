@@ -64,7 +64,7 @@ return {
         prepend_args = { '-i', '2' },
       },
       pg_format = {
-        prepend_args = { '--keyword-case', '2', '--spaces', '3', '--nogrouping', '--keep-newline' },
+        prepend_args = { '--keyword-case', '2', '--spaces', '3', '--nogrouping', '--keep-newline', '--placeholder', 'DEFAULT VALUES' },
       },
     },
   },
