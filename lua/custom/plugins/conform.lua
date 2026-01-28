@@ -30,14 +30,14 @@ return {
       markdown = { 'prettier', 'markdownlint-cli2', 'markdown-toc' },
       python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
       sh = { 'shfmt', 'shellcheck' },
-      sql = { 'pg_format' },
+      sql = { 'sqlfluff' },
     },
     -- Set default options
     default_format_opts = {
       lsp_format = 'fallback',
     },
     -- Set up format-on-save
-    format_on_save = { timeout_ms = 500 },
+    format_on_save = { timeout_ms = 1000, lsp_fallback = true },
     -- Customize formatters
     formatters = {
       jq = {
@@ -63,8 +63,8 @@ return {
       shfmt = {
         prepend_args = { '-i', '2' },
       },
-      pg_format = {
-        prepend_args = { '--keyword-case', '2', '--spaces', '3', '--nogrouping', '--keep-newline', '--placeholder', 'DEFAULT VALUES' },
+      sqlfluff = {
+        args = { 'fix', '--dialect', 'postgres', '--show-lint-violations', '-' }, -- "-" denotes stdin
       },
     },
   },
