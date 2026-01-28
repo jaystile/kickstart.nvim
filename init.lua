@@ -730,6 +730,9 @@ else
                 completion = {
                   callSnippet = 'Replace',
                 },
+                format = {
+                  enable = false,
+                },
                 -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
                 -- diagnostics = { disable = { 'missing-fields' } },
               },
@@ -740,13 +743,14 @@ else
 
         -- Elixir Language Server cannot be installed automatically. It must be built with the version of Erlang and Elixir
         --  that is being developed.
-        local lspconfig = require 'lspconfig'
-
-        lspconfig.elixirls.setup {
-          -- you need to specify the executable command mannualy for elixir-ls
+        --
+        vim.lsp.config('elixirls', {
+          -- elixir-ls must be installed/built manually
           cmd = { 'elixir-ls' },
           capabilities = capabilities,
-        }
+        })
+
+        vim.lsp.enable 'elixirls'
 
         -- Ensure the servers and tools above are installed
         --
@@ -777,7 +781,8 @@ else
               -- by the server configuration above. Useful when disabling
               -- certain features of an LSP (for example, turning off formatting for ts_ls)
               server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-              require('lspconfig')[server_name].setup(server)
+              vim.lsp.config(server_name, server)
+              vim.lsp.enable(server_name)
             end,
           },
         }
